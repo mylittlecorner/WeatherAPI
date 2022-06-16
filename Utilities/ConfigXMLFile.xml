@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" ?>
+<config>
+  <api name="PostWeather">
+    <base>http://api.weatherapi.com/v1/current.json</base>
+    <key>90da7c4066da4051a93105148221206</key>
+  </api>
+  <api name="Blah">
+    <base>http://api.weatherapi.com/v1/current.json</base>
+    <key>90da7c4066da4051a93105148221206</key>
+  </api>
+</config>
