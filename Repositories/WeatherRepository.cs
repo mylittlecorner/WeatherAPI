@@ -27,7 +27,14 @@ namespace WeatherAPI.Repositories
         public async Task Delete(string name)
         {
             var weatherToDelete = await _context.WeatherModel.Where(o => o.location.name == name).FirstOrDefaultAsync();
-            _context.WeatherModel.Remove(weatherToDelete);
+            try
+            {
+                _context.WeatherModel.Remove(weatherToDelete);
+            }
+            catch (Exception)
+            {
+
+            }
             await _context.SaveChangesAsync();
         }
 

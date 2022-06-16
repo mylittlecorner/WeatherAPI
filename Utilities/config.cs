@@ -2,11 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace WeatherAPITests.Controllers
+namespace WeatherAPI.Utilities
 {
-
-    // UWAGA: Wygenerowany kod może wymagać co najmniej programu .NET Framework 4.5 lub .NET Core/Standard 2.0.
-    /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
@@ -16,7 +13,6 @@ namespace WeatherAPITests.Controllers
 
         private configApi[] apiField;
 
-        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("api")]
         public configApi[] api
         {
@@ -31,7 +27,6 @@ namespace WeatherAPITests.Controllers
         }
     }
 
-    /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
@@ -44,7 +39,6 @@ namespace WeatherAPITests.Controllers
 
         private string nameField;
 
-        /// <remarks/>
         public string @base
         {
             get
@@ -57,7 +51,6 @@ namespace WeatherAPITests.Controllers
             }
         }
 
-        /// <remarks/>
         public string key
         {
             get
@@ -70,7 +63,6 @@ namespace WeatherAPITests.Controllers
             }
         }
 
-        /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
         public string name
         {

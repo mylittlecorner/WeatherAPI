@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 using WeatherAPI.Models;
 using WeatherAPI.Repositories;
 using System.Net.Http.Json;
+using WeatherAPI.Utilities;
+using System.Xml.Serialization;
+using System.Diagnostics;
 
 namespace WeatherAPI.Controllers
 {
@@ -37,8 +40,15 @@ namespace WeatherAPI.Controllers
         [Authorize(Roles = "Administrator")]
         public async Task<ActionResult<WeatherModel>> PostWeather([FromBody]string name)
         {
+            await _weatherRepository.Delete(name);
+            config c = null;
+            var xmlSerializer = new XmlSerializer(typeof(config));
+            using (var reader = new System.IO.StreamReader("ConfigXMLFile.xml"))
+            {
+                c = (config)xmlSerializer.Deserialize(reader);
+            }
             WeatherModel model = new WeatherModel();
-            var request = new HttpRequestMessage(HttpMethod.Get, $"http://api.weatherapi.com/v1/current.json?key= 90da7c4066da4051a93105148221206&q={name}&aqi=no");
+            var request = new HttpRequestMessage(HttpMethod.Get, $"{c.api[0].@base}?key= {c.api[0].key}&q={name}&aqi=no");
             var client = _clientFactory.CreateClient();
             HttpResponseMessage response = await client.SendAsync(request);
             if(response.IsSuccessStatusCode)
@@ -50,19 +60,6 @@ namespace WeatherAPI.Controllers
             return CreatedAtAction(nameof(GetWeather), new { name = newWeather.location.name }, newWeather);
         }
 
-        [HttpPut]
-        [Authorize(Roles = "Administrator")]
-        public async Task<ActionResult> PutWeather(string name, [FromBody] WeatherModel model)
-        {
-            if (name != model.location.name)
-            {
-                return BadRequest();
-            }
-
-            await _weatherRepository.Update(model);
-
-            return NoContent();
-        }
 
         [HttpDelete("Remove")]
         [Authorize(Roles = "Administrator")]
