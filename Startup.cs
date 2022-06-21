@@ -29,6 +29,10 @@ namespace WeatherAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+            });
             services.AddScoped<IWeatherRepository, WeatherRepository>();
             services.AddHttpClient();
             services.AddDbContext<WeatherContext>(o => o.UseSqlite("Data source=weather.db"));
@@ -68,7 +72,7 @@ namespace WeatherAPI
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseCors();
             app.UseAuthentication();
 
             app.UseAuthorization();

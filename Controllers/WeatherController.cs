@@ -29,7 +29,7 @@ namespace WeatherAPI.Controllers
             _clientFactory = clientFactory;
         }
 
-        [HttpGet("Retrive")]
+        [HttpPost("Retrive")]
         [Authorize(Roles = "Administrator,Guest")]
         public async Task<ActionResult<WeatherModel>> GetWeather([FromBody]string name)
         {
