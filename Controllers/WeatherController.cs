@@ -29,6 +29,13 @@ namespace WeatherAPI.Controllers
             _clientFactory = clientFactory;
         }
 
+        [HttpGet("List")]
+        [Authorize(Roles = "Administrator,Guest")]
+        public async Task<ActionResult<List<String>>> ListWeather()
+        {
+            return await _weatherRepository.Get();
+        }
+
         [HttpPost("Retrive")]
         [Authorize(Roles = "Administrator,Guest")]
         public async Task<ActionResult<WeatherModel>> GetWeather([FromBody]string name)

@@ -8,7 +8,7 @@ namespace WeatherAPI.Repositories
 {
     public interface IWeatherRepository
     {
-        Task<IEnumerable<WeatherModel>> Get();
+        Task<List<String>> Get();
         Task<WeatherModel> Get(string name);
         Task<WeatherModel> Create(WeatherModel model);
         Task Update(WeatherModel model);

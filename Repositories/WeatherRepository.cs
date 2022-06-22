@@ -38,11 +38,10 @@ namespace WeatherAPI.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<WeatherModel>> Get()
+        public async Task<List<String>> Get()
         {
-            return await _context.WeatherModel.ToListAsync();
+            return await _context.WeatherModel.Include(x => x.location).Select(o => o.location.name).ToListAsync();
         }
-
         public async Task<WeatherModel> Get(string name)
         {
             return await _context.WeatherModel.Include(x => x.location).Include(x => x.current).ThenInclude(x => x.condition).Where(o => o.location.name == name).FirstOrDefaultAsync();
